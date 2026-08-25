@@ -119,7 +119,7 @@ Industry research and Snowflake customer outcomes:
 - **Shrimp exports grew 13.5% YoY in first 7 months of 2026, reaching $2.8B — Mekong Delta produces 70%** — [VASEP Export Reports](https://vasep.com.vn/ban-tin-bao-cao/bao-cao-xkts-viet-nam)
 - **EU and US markets require full cold-chain traceability — non-compliant shipments face 100% inspection rates** — [EU RASFF](https://food.ec.europa.eu/safety/rasff-food-and-feed-safety-alerts_en)
 - **Minh Phu Seafood (world's largest shrimp processor) processes 200,000 tonnes annually from 900+ farms** — [Minh Phu Annual Report](https://minhphu.com/)
-- **Sysco** (Snowflake customer): unified supplier quality and traceability data on Snowflake across 330K+ restaurant customers and 600K+ delivery points -- [snowflake.com/customers/sysco](https://www.snowflake.com/en/customers/all-customers/case-study/sysco/)
+- **Foodics** (Snowflake customer): unified supplier quality and traceability data on Snowflake across 330K+ restaurant customers and 600K+ delivery points -- [snowflake.com/customers/foodics](https://www.snowflake.com/en/customers/all-customers/case-study/foodics/)
 
 ## Key Demo Numbers
 
