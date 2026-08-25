@@ -1,6 +1,6 @@
 -- ============================================================================
 -- 09_AWS_INTEGRATION.SQL — AWS services for Export Compliance
--- Account: 018437500440 | Region: ap-southeast-1
+-- Account: <YOUR_AWS_ACCOUNT_ID> | Region: ap-southeast-1
 -- Skip this script for Snowflake-only build
 -- ============================================================================
 USE DATABASE AQUACULTURE_EXPORT;
@@ -65,18 +65,18 @@ $$;
 CREATE OR REPLACE STORAGE INTEGRATION aws_vietnam_aquaculture_export_S3_INT
   TYPE = EXTERNAL_STAGE
   STORAGE_PROVIDER = 'S3'
-  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::018437500440:role/snowflake-sea-demos-s3'
+  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/snowflake-sea-demos-s3'
   ENABLED = TRUE
-  STORAGE_ALLOWED_LOCATIONS = ('s3://sea-aws-demos-018437500440/aws-vietnam-aquaculture-export/');
+  STORAGE_ALLOWED_LOCATIONS = ('s3://<YOUR_S3_BUCKET>/aws-vietnam-aquaculture-export/');
 
 -- External stage for data landing
 CREATE OR REPLACE STAGE RAW.LANDING_STAGE
   STORAGE_INTEGRATION = aws_vietnam_aquaculture_export_S3_INT
-  URL = 's3://sea-aws-demos-018437500440/aws-vietnam-aquaculture-export/';
+  URL = 's3://<YOUR_S3_BUCKET>/aws-vietnam-aquaculture-export/';
 
 -- ==================== KINESIS / IOT CORE INGESTION ====================
 -- Snowpipe from Kinesis Data Stream
--- Stream ARN: arn:aws:kinesis:ap-southeast-1:018437500440:stream/aws-vietnam-aquaculture-export-stream
+-- Stream ARN: arn:aws:kinesis:ap-southeast-1:<YOUR_AWS_ACCOUNT_ID>:stream/aws-vietnam-aquaculture-export-stream
 
 CREATE OR REPLACE PIPE RAW.REALTIME_PIPE
   AUTO_INGEST = TRUE
