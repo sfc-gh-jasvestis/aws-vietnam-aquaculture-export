@@ -118,7 +118,7 @@ Industry research and Snowflake customer outcomes:
 - **Vietnam seafood exports reached $10B in 2024, with shrimp alone at $4B — 3rd largest seafood exporter globally** — [VASEP](https://vasep.com.vn/san-pham-xuat-khau/tom/xuat-nhap-khau)
 - **Shrimp exports grew 13.5% YoY in first 7 months of 2026, reaching $2.8B — Mekong Delta produces 70%** — [VASEP Export Reports](https://vasep.com.vn/ban-tin-bao-cao/bao-cao-xkts-viet-nam)
 - **EU and US markets require full cold-chain traceability — non-compliant shipments face 100% inspection rates** — [EU RASFF](https://food.ec.europa.eu/safety/rasff-food-and-feed-safety-alerts_en)
-- **Minh Phu Seafood (world's largest shrimp processor) processes 200,000 tonnes annually from 900+ farms** — [Minh Phu Annual Report](https://minhphu.com/en/investor-relations/)
+- **Minh Phu Seafood (world's largest shrimp processor) processes 200,000 tonnes annually from 900+ farms** — [Minh Phu Annual Report](https://minhphu.com/)
 
 ## Key Demo Numbers
 
