@@ -35,36 +35,36 @@ export default function HomePage() {
   const executiveCockpit = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPICard title="Total Harvest" value="₫2.4B" status="neutral" />
-        <KPICard title="Water Quality" value="7" status="warning" />
-        <KPICard title="Anomalies Detected" value="3" status="danger" />
-        <KPICard title="Active Farms" value="124" status="neutral" />
+        <KPICard title="Export Revenue" value="₫4.2T" status="neutral" />
+        <KPICard title="Shipments (MTD)" value="847" status="neutral" />
+        <KPICard title="Rejection Rate" value="0.4%" status="neutral" />
+        <KPICard title="Markets Active" value="42" status="neutral" />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Chart
           data={data?.timeseries || [{ period: 'Loading', value: 0 }]}
           type="line"
           xKey="period"
-          yKeys={[{ key: 'value', name: 'Harvest' }]}
-          title="Harvest Trend (Weekly)"
+          yKeys={[{ key: 'value', name: 'Tonnes' }]}
+          title="Export Volume by Market (Monthly)"
         />
         <Chart
           data={data?.categories || [{ category: 'Loading', count: 0 }]}
           type="bar"
           xKey="category"
-          yKeys={[{ key: 'count', name: 'Count' }]}
-          title="Water Quality by Farm"
+          yKeys={[{ key: 'count', name: '₫B' }]}
+          title="Revenue by Species"
         />
       </div>
       <DataTable
         columns={[
-          { key: 'id', header: '#' },
-          { key: 'name', header: 'Farm' },
-          { key: 'status', header: 'Status' },
-          { key: 'value', header: 'Harvest' },
+          { key: 'id', header: 'Rank' },
+          { key: 'name', header: 'Market' },
+          { key: 'status', header: 'Trend' },
+          { key: 'value', header: 'Volume (T)' },
         ]}
         data={data?.entities || []}
-        title="Farm Performance"
+        title="Top Export Destinations"
       />
     </div>
   );
@@ -72,16 +72,16 @@ export default function HomePage() {
   const domainTab1 = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <KPICard title="Efficiency" value="87%" />
-        <KPICard title="Utilization" value="72%" />
-        <KPICard title="Growth Rate" value="+8.4%" />
+        <KPICard title="US Anti-Dumping Status" value="Clear" />
+        <KPICard title="EU IUU Status" value="Green Card" />
+        <KPICard title="Avg Price/kg" value="₫184K" />
       </div>
       <Chart
         data={data?.detail || [{ x: 'Loading', y: 0 }]}
         type="area"
         xKey="x"
-        yKeys={[{ key: 'y', name: 'Index' }]}
-        title="Export Performance Trend"
+        yKeys={[{ key: 'y', name: '₫K/kg' }]}
+        title="Price Trend by Species"
         height={400}
       />
     </div>
@@ -94,17 +94,17 @@ export default function HomePage() {
           data={data?.breakdown || [{ label: 'A', value: 30 }, { label: 'B', value: 70 }]}
           type="pie"
           xKey="label"
-          yKeys={[{ key: 'value', name: 'Score' }]}
-          title="Risk Distribution"
+          yKeys={[{ key: 'value', name: 'Risk Score' }]}
+          title="Regulatory Risk by Market"
         />
         <ActionMemo
-          persona={{ name: 'Vietnam Operations Lead', role: 'Director of Export' }}
+          persona={{ name: 'Nguyen Van Thanh', role: 'VP Export Operations' }}
           context={{}}
           onGenerate={async () => ({
             subject: 'Action Required',
             body: 'AI-generated recommendation based on current data patterns and predicted trends.',
             urgency: 'HIGH',
-            actions: ['Review top water quality findings', 'Optimize farm allocation', 'Prepare quarterly export report'],
+            actions: ['Prepare documentation for US DOC review (pangasius)', 'Address EU food safety alert on shrimp batch VN-2024-847', 'Negotiate FTA preferential rates for Korean market'],
           })}
         />
       </div>
@@ -116,9 +116,9 @@ export default function HomePage() {
       <AskAI
         title="Ask AI"
         sampleQuestions={[
-          'Which farms have the highest water quality?',
-          'Show harvest trend for the last 30 days',
-          'What is the forecast for next quarter's harvest?',
+          'Which markets have the highest rejection rates?',
+          'Show pangasius price trend vs catfish competitors',
+          'What is the forecast demand for shrimp in the EU?',
         ]}
         mode="both"
         onSubmit={async (question, mode) => {
@@ -178,8 +178,8 @@ export default function HomePage() {
 
   const tabs = [
     { id: 'executive-cockpit', label: 'Executive Cockpit', icon: '📊', content: executiveCockpit },
-    { id: 'domain-1', label: 'Export Analytics', icon: '📈', content: domainTab1 },
-    { id: 'domain-2', label: 'Alerts & Actions', icon: '⚡', content: domainTab2 },
+    { id: 'domain-1', label: 'Market Analytics', icon: '📈', content: domainTab1 },
+    { id: 'domain-2', label: 'Compliance', icon: '⚡', content: domainTab2 },
     { id: 'ask-ai', label: 'Ask AI', icon: '🤖', content: askAiTab },
     { id: 'architecture', label: 'Architecture & Data', icon: '🏗️', content: architectureTab },
   ];
