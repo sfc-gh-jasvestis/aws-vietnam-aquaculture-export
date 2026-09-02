@@ -32,15 +32,22 @@ export default function HomePage() {
       .catch(() => {});
   }, []);
 
+
+  // KPI values come from /api/data, which reads CURATED.KPI_SUMMARY. The literal
+  // stays as a fallback so the card still renders if the API is unavailable.
+  const kpiVal = (title: string, fallback: string): string =>
+    (data?.kpiCards as { title: string; value: string }[] | undefined)
+      ?.find((k) => k.title === title)?.value ?? fallback;
+
   const title = narrative?.title || 'SEA AWS Demo';
 
   const executiveCockpit = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPICard title="Export Revenue" value="₫4.2T" status="neutral" />
-        <KPICard title="Shipments (MTD)" value="847" status="neutral" />
-        <KPICard title="Rejection Rate" value="0.4%" status="neutral" />
-        <KPICard title="Markets Active" value="42" status="neutral" />
+        <KPICard title="Export Revenue" value={kpiVal('Export Revenue', '₫4.2T')} status="neutral" />
+        <KPICard title="Shipments (MTD)" value={kpiVal('Shipments (MTD)', '847')} status="neutral" />
+        <KPICard title="Rejection Rate" value={kpiVal('Rejection Rate', '0.4%')} status="neutral" />
+        <KPICard title="Markets Active" value={kpiVal('Markets Active', '42')} status="neutral" />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="lg:col-span-1">
@@ -87,9 +94,9 @@ export default function HomePage() {
   const domainTab1 = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <KPICard title="US Anti-Dumping Status" value="Clear" />
-        <KPICard title="EU IUU Status" value="Green Card" />
-        <KPICard title="Avg Price/kg" value="₫184K" />
+        <KPICard title="US Anti-Dumping Status" value={kpiVal('US Anti-Dumping Status', 'Clear')} />
+        <KPICard title="EU IUU Status" value={kpiVal('EU IUU Status', 'Green Card')} />
+        <KPICard title="Avg Price/kg" value={kpiVal('Avg Price/kg', '₫184K')} />
       </div>
       <Chart
         data={data?.detail || [{ x: 'Mon', y: 24 }, { x: 'Tue', y: 28 }, { x: 'Wed', y: 22 }, { x: 'Thu', y: 31 }, { x: 'Fri', y: 26 }, { x: 'Sat', y: 19 }, { x: 'Sun', y: 23 }]}
