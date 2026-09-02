@@ -21,8 +21,8 @@ Snowflake delivers export compliance intelligence for Vietnamese aquaculture & s
 | Database | `VIETNAM_AQUACULTURE_EXPORT` |
 | Service | `VIETNAM_AQUACULTURE_EXPORT_APP` |
 | Compute pool | `SEA_DEMOS_VIETNAM_POOL` |
-| Dimension table | `RAW.DOCUMENTS` (20 rows) |
-| Fact table | `RAW.METRICS` (250,000 rows, 90 days) |
+| Dimension table | `RAW.FARMS` (20 rows) |
+| Fact table | `RAW.EXPORT_SHIPMENTS` (250,000 rows, 90 days) |
 | Curated layer | `CURATED.PERFORMANCE_SUMMARY`, `CURATED.TREND_ANALYSIS`, `CURATED.KPI_SUMMARY` |
 | Currency | VND (₫) |
 
@@ -42,10 +42,10 @@ original literal as a fallback, so it still renders if Snowflake is unreachable.
 
 | Card | Value | Backed by |
 |---|---|---|
-| Export Revenue | `₫4.2T` | total across Documents |
-| Shipments (MTD) | `847` | total across Documents |
+| Export Revenue | `₫4.2T` | total across Farms |
+| Shipments (MTD) | `847` | total across Farms |
 | Rejection Rate | `0.4%` | average per event |
-| Markets Active | `42` | total across Documents |
+| Markets Active | `42` | total across Farms |
 | Avg Price/kg | `₫184K` | average per event |
 | US Anti-Dumping Status | `Clear` | fixed label (not numeric) |
 | EU IUU Status | `Green Card` | fixed label (not numeric) |
