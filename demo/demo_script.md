@@ -1,105 +1,77 @@
-# Demo Script: Export Compliance
-## ~4-Minute Recorded Walkthrough
-**Format**: Screen recording with voiceover
-**Target**: Customer meeting / booth loop / social share
-**Narrative**: "Snowflake delivers export compliance intelligence for Vietnamese aquaculture & seafood - Dynamic Tables maintain real-time dashboards, ML.FORECAST projects key metrics, and Cortex AI generates recommendations"
-**Demo Mode**: Open app with `?demo=true` for presenter notes
+# Export Compliance
 
----
+**Vietnam - Aquaculture & Seafood**
+Use case: Export Compliance
 
-## Two Personas
+> Export Compliance for Vietnam - ML.FORECAST and Dynamic Tables power real-time export compliance intelligence for aquaculture & seafood in Ho Chi Minh City.
 
-| Persona | Role | Tool | What they care about |
-|---|---|---|---|
-| **Dang Quoc Tuan** | VP Export Sales | React App (SPCS) | Export Compliance strategy, KPI tracking, operational decisions |
-| **Nguyen Thi Phuong** | Compliance Manager | Amazon QuickSight | Export Compliance operations, analysis, reporting |
+## Why Snowflake
 
----
+Snowflake delivers export compliance intelligence for Vietnamese aquaculture & seafood - Dynamic Tables maintain real-time dashboards, ML.FORECAST projects key metrics, and Cortex AI generates recommendations
 
-## What's Built
+- **ML.FORECAST for export compliance** - Only demo for Vietnamese aquaculture & seafood
+- **ML.ANOMALY_DETECTION early warning** - Detects deviations before impact
+- **AI recommendations** - Cortex AI actionable guidance
+- **Vietnamese context** - Local names, VND economics
 
-| Layer | Component | Detail |
+## What is deployed
+
+| | |
+|---|---|
+| Database | `VIETNAM_AQUACULTURE_EXPORT` |
+| Service | `VIETNAM_AQUACULTURE_EXPORT_APP` |
+| Compute pool | `SEA_DEMOS_VIETNAM_POOL` |
+| Dimension table | `RAW.DOCUMENTS` (20 rows) |
+| Fact table | `RAW.METRICS` (250,000 rows, 90 days) |
+| Curated layer | `CURATED.PERFORMANCE_SUMMARY`, `CURATED.TREND_ANALYSIS`, `CURATED.KPI_SUMMARY` |
+| Currency | VND (₫) |
+
+Regions in play: Ho Chi Minh City, Hanoi, Binh Duong, Dong Nai, Can Tho
+Segments: EU Export, US Export, Japan Export, China Export
+
+Dynamic tables are created suspended and refreshed on demand:
+
+```bash
+./refresh_demo_data.sh VIETNAM_AQUACULTURE_EXPORT
+```
+
+## KPI cards
+
+Every card below is served live from `CURATED.KPI_SUMMARY`. The app keeps the
+original literal as a fallback, so it still renders if Snowflake is unreachable.
+
+| Card | Value | Backed by |
 |---|---|---|
-| **RAW** | 5 tables | OPERATIONS (100000), METRICS (500000), ASSETS (5000), EVENTS (200000), DOCUMENTS (100) |
-| **CURATED** | 4 Dynamic Tables | PERFORMANCE_DASHBOARD, TREND_ANALYTICS, FORECAST_INPUT, OPERATIONAL_RISK |
-| **ML** | ML.FORECAST + ML.ANOMALY_DETECTION | Forecasting + anomaly detection |
-| **AI** | COMPLETE, SUMMARIZE, AI_CLASSIFY | Classification + extraction |
-| **Search** | Cortex Search | 100 documents indexed |
-| **Agent** | AQUACULTURE_EXPORT_AGENT | Semantic View + Search tools |
+| Export Revenue | `₫4.2T` | total across Documents |
+| Shipments (MTD) | `847` | total across Documents |
+| Rejection Rate | `0.4%` | average per event |
+| Markets Active | `42` | total across Documents |
+| Avg Price/kg | `₫184K` | average per event |
+| US Anti-Dumping Status | `Clear` | fixed label (not numeric) |
+| EU IUU Status | `Green Card` | fixed label (not numeric) |
 
+## Demo flow
 
----
+1. Overview
+2. Analytics
+3. AI Intelligence
+4. Ask AI
+5. Architecture
 
-## The Story
+## Talking points
 
-Vietnam aquaculture & seafood faces increasing complexity in export compliance. Decision-makers in Ho Chi Minh City need real-time intelligence and ML-powered recommendations.
+- **100K operations** - tracked in Ho Chi Minh City
+- **500K metrics** - time-series data points
+- **5K assets** - monitored
+- **100 docs** - searchable
 
----
+## Business impact
 
-## Script
-
-### [0:00–0:45] OVERVIEW
-
-**Show**: Overview tab
-
-> "Comprehensive export compliance monitoring in Ho Chi Minh City."
-
-**Action**: Primary KPI dashboard
-
-### [0:45–1:30] ANALYTICS
-
-**Show**: Analytics tab
-
-> "Detailed trend analysis across parameters."
-
-**Action**: Trend charts
-
-### [1:30–2:15] AI INTELLIGENCE
-
-**Show**: AI Intelligence tab
-
-> "Cortex AI generates actionable recommendations."
-
-**Action**: AI recommendations
-
-### [2:15–3:00] ASK AI
-
-**Show**: Ask AI tab
-
-> "Dang Quoc Tuan asks questions in natural language."
-
-**Action**: Type question
-
-### [3:00–3:45] ARCHITECTURE
-
-**Show**: Architecture tab
-
-> "Six Snowflake + six AWS services."
-
-**Action**: Architecture diagram
-
+- Vietnam aquaculture & seafood sector growing rapidly (GSO Vietnam)
+- AI improves outcomes 15-30% (McKinsey)
+- Vietnam FDI strong in this sector (MPI)
+- Real-time analytics reduces response 60-80% (Gartner)
 
 ---
-
-## Key Demo Differentiators
-
-1. **ML.FORECAST for export compliance** — Only demo for Vietnamese aquaculture & seafood
-2. **ML.ANOMALY_DETECTION early warning** — Detects deviations before impact
-3. **AI recommendations** — Cortex AI actionable guidance
-4. **Vietnamese context** — Local names, VND economics
-
-
----
-
-## Demo Prep Checklist
-
-### Data Verification
-- [ ] `SELECT COUNT(*) FROM AQUACULTURE_EXPORT.RAW.OPERATIONS` → 100000
-- [ ] `SELECT COUNT(*) FROM AQUACULTURE_EXPORT.RAW.METRICS` → 500000
-
-### ML Model Verification
-- [ ] `SELECT COUNT(*) FROM AQUACULTURE_EXPORT.ML.AQUACULTURE_EXPORT_FORECAST_RESULTS` → >0
-
-### AI/Agent Verification
-- [ ] `SELECT COUNT(*) FROM AQUACULTURE_EXPORT.AI.EVENT_CLASSIFICATION` → >0
-
+Generated from `generator/demo_specs/aws-vietnam-aquaculture-export.json`. Do not hand-edit: run
+`python3 generator/gen_repo_docs.py aws-vietnam-aquaculture-export` instead.
