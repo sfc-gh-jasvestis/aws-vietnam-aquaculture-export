@@ -1,16 +1,13 @@
--- ============================================================================
--- Export Compliance
--- Export Compliance for Vietnam - ML.FORECAST and Dynamic Tables power real-time export compliance intelligence for aquaculture & seafood in Ho Chi Minh City.
--- ============================================================================
-USE ROLE ACCOUNTADMIN;
-CREATE DATABASE IF NOT EXISTS AQUACULTURE_EXPORT;
-CREATE WAREHOUSE IF NOT EXISTS AQUACULTURE_WH WAREHOUSE_SIZE = 'MEDIUM' AUTO_SUSPEND = 120 AUTO_RESUME = TRUE;
-USE DATABASE AQUACULTURE_EXPORT;
-CREATE SCHEMA IF NOT EXISTS RAW;
-CREATE SCHEMA IF NOT EXISTS CURATED;
-CREATE SCHEMA IF NOT EXISTS ML;
-CREATE SCHEMA IF NOT EXISTS AI;
-CREATE SCHEMA IF NOT EXISTS SEARCH;
-CREATE SCHEMA IF NOT EXISTS APP;
+-- Generated from generator/demo_specs/aws-vietnam-aquaculture-export.json
+-- Regenerate with: python3 generator/gen_repo_docs.py aws-vietnam-aquaculture-export
+-- This is the schema that is actually deployed for VIETNAM_AQUACULTURE_EXPORT.
 
-USE WAREHOUSE AQUACULTURE_WH;
+-- VIETNAM_AQUACULTURE_EXPORT  (Export Compliance)
+-- generated from generator/demo_specs/aws-vietnam-aquaculture-export.json - do not hand-edit
+CREATE DATABASE IF NOT EXISTS VIETNAM_AQUACULTURE_EXPORT;
+CREATE SCHEMA IF NOT EXISTS VIETNAM_AQUACULTURE_EXPORT.RAW;
+CREATE SCHEMA IF NOT EXISTS VIETNAM_AQUACULTURE_EXPORT.CURATED;
+CREATE SCHEMA IF NOT EXISTS VIETNAM_AQUACULTURE_EXPORT.APP;
+USE DATABASE VIETNAM_AQUACULTURE_EXPORT;
+
+-- 5 real regions; entity names carry their region so the two always agree
