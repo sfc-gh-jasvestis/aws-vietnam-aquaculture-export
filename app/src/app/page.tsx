@@ -53,6 +53,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="vietnam"
+            regions={data?.regions}
             markers={[{"label": "Can Tho", "value": "Processing hub", "color": "blue", "size": "lg"}, {"label": "Ca Mau", "value": "Shrimp farms: 4.2K", "color": "green", "size": "lg"}, {"label": "Ben Tre", "value": "Pangasius: 1.8K", "color": "green", "size": "md"}, {"label": "Ho Chi Minh City", "value": "Export HQ", "color": "blue", "size": "md"}]}
             routes={[{"from": "Can Tho", "to": "Ho Chi Minh City", "color": "#29B5E8"}]}
             title="Geographic Overview"
