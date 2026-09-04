@@ -53,6 +53,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="vietnam"
+            labels={{ entity: 'Markets', event: 'Export Shipments', alert: 'Rejections' }}
             regions={data?.regions}
             markers={[{"label": "Can Tho", "value": "Processing hub", "color": "blue", "size": "lg"}, {"label": "Ca Mau", "value": "Shrimp farms: 4.2K", "color": "green", "size": "lg"}, {"label": "Ben Tre", "value": "Pangasius: 1.8K", "color": "green", "size": "md"}, {"label": "Ho Chi Minh City", "value": "Export HQ", "color": "blue", "size": "md"}]}
             routes={[{"from": "Can Tho", "to": "Ho Chi Minh City", "color": "#29B5E8"}]}
@@ -83,8 +84,12 @@ export default function HomePage() {
         columns={[
           { key: 'id', header: 'Rank' },
           { key: 'name', header: 'Market' },
+          { key: 'region', header: 'Region' },
           { key: 'status', header: 'Trend' },
-          { key: 'value', header: 'Volume (T)' },
+          { key: 'm1', header: 'Volume (T)' },
+          { key: 'm2', header: 'Rejection Rate' },
+          { key: 'events', header: 'Export Shipments' },
+          { key: 'alerts', header: 'Rejections' },
         ]}
         data={data?.entities || []}
         title="Top Export Destinations"
