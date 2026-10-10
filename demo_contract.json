@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "repo": "aws-vietnam-aquaculture-export",
+  "operation": "on-demand",
+  "data_classification": "synthetic demonstration only",
+  "currency": "USD",
+  "grains": {
+    "RAW.EXPORTERS": "one row per fictional seafood exporter (city and product line)",
+    "RAW.EXPORTER_DAILY": "one row per exporter per day (90 days)",
+    "RAW.COMPLIANCE_DOCUMENTS": "one row per exporter (export document snapshot)",
+    "CURATED.PERFORMANCE_SUMMARY": "one row per exporter",
+    "CURATED.TREND_ANALYSIS": "one row per day",
+    "CURATED.ISSUE_SUMMARY": "one row per shipment issue type",
+    "CURATED.KPI_SUMMARY": "one row per KPI",
+    "ML.REJECT_RISK_SCORES": "one row per exporter (latest day)"
+  },
+  "metrics": {
+    "Clean Consignment Rate": "100 * (SUM(SHIPMENT_COUNT) - SUM(ISSUE_COUNT)) / SUM(SHIPMENT_COUNT)",
+    "Consignment Issues Raised": "SUM(ISSUE_COUNT)",
+    "Import Rejections": "SUM(REJECTED_COUNT)",
+    "Issue Rejection Rate": "100 * SUM(REJECTED_COUNT) / SUM(ISSUE_COUNT)",
+    "Late Arrivals": "SUM(LATE_DELIVERY)",
+    "Export Value (USD M)": "SUM(SHIPMENT_VALUE_USD) / 1e6",
+    "Consignments Dispatched": "SUM(SHIPMENT_COUNT)",
+    "Residue Lab Test Compliance": "100 * SUM(LAB_TEST_DONE) / SUM(LAB_TEST_DUE)",
+    "Seafood Exporters Monitored": "COUNT(RAW.EXPORTERS)",
+    "Export Document Coverage": "100 * SUM(LEAST(ON_FILE_QTY, REQUIRED_QTY)) / SUM(REQUIRED_QTY)",
+    "Export Documents Pending": "SUM(PENDING_QTY)"
+  },
+  "chart_bindings": {
+    "issues_by_type": [
+      "CURATED.ISSUE_SUMMARY.ISSUE_TYPE",
+      "ISSUE_COUNT",
+      "REJECTED_COUNT"
+    ],
+    "lab_test_vs_rejected": [
+      "CURATED.PERFORMANCE_SUMMARY.LAB_TEST_PCT",
+      "REJECTED_COUNT"
+    ],
+    "quicksight_reject_risk": [
+      "ENTITY_ID",
+      "MAX(REJECT_PROB_7D)"
+    ],
+    "daily_shipment_issues": [
+      "CURATED.TREND_ANALYSIS.METRIC_DATE",
+      "ISSUE_COUNT",
+      "REJECTED_COUNT"
+    ]
+  },
+  "freshness": "MAX(EVENT_DATE) is an observation watermark; requestedAt is not freshness",
+  "required_capabilities": {
+    "core_pipeline": "Curated KPIs reconcile to a RAW recomputation (run_core.py checks this on every build)",
+    "forecast_and_anomaly": "14-day all-exporter shipment-issue FORECAST; document discrepancy rate ANOMALY_DETECTION (train 75 days, detect last 15)",
+    "search": "Cortex Search SEARCH.ISSUE_SOP_SEARCH over synthetic seafood consignment-issue SOPs (one per product line and issue type with a rejection)",
+    "semantic_analytics": "Semantic view APP.SEAFOOD_EXPORT_ANALYTICS and Cortex Agent APP.SEAFOOD_EXPORT_AGENT using analyst + search tools",
+    "grounded_ai": "Agent answers return generated SQL and SOP citations; the action memo uses only KPI, exporter, issue-type and risk rows",
+    "quicksight": "DIRECT_QUERY dashboard (exporters, daily shipment issues, rejected shipments by exporter, import rejection risk, shipment events loaded) through a read-only Snowflake service user",
+    "quicksight_q": "Amazon Q topic over the curated datasets for natural-language questions",
+    "aws_ingestion": "Amazon Data Firehose -> S3 -> Snowpipe AUTO_INGEST into RAW.LIVE_SHIPMENTS",
+    "notifications": "APP.LIVE_SHIPMENT_ALERT logs new ISSUE events to APP.ALERT_LOG and emails via SYSTEM$SEND_EMAIL; alert and tasks suspended between demos",
+    "orchestration": "Task graph APP.TASK_REFRESH_CURATED -> APP.TASK_RESCORE_RISK run on demand (EXECUTE TASK)",
+    "app_deployment": "SPCS service APP.VN_AQUACULTURE_EXPORT_APP; routes /api/data, /api/ask, /api/agent",
+    "reject_risk_model": "Snowflake ML CLASSIFICATION of P(import rejection for the seafood exporter in the next 7 days), evaluated on an out-of-time holdout"
+  },
+  "builds": {
+    "snowflake": {
+      "database": "VIETNAM_AQUACULTURE_EXPORT_SNOWFLAKE",
+      "app_setting": "DEMO_PLATFORM=snowflake",
+      "memo": "Cortex AI_COMPLETE (claude-sonnet-4-5)",
+      "live_shipments": "APP.SIMULATE_SHIPMENTS(n)"
+    },
+    "aws": {
+      "database": "VIETNAM_AQUACULTURE_EXPORT_AWS",
+      "app_setting": "DEMO_PLATFORM=aws",
+      "memo": "Amazon Bedrock Claude Sonnet 4.5 via APP.BEDROCK_GENERATE",
+      "capabilities": "see required_capabilities",
+      "live_shipments": "Amazon Data Firehose -> S3 -> Snowpipe"
+    }
+  }
+}
